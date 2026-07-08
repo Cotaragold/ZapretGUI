@@ -2,7 +2,10 @@
 ; Сборка: installer\build-installer.ps1 (сам публикует и вызывает ISCC)
 
 #define MyAppName "Zapret GUI"
-#define MyAppVersion "1.0.0"
+; Версию можно переопределить: ISCC /DMyAppVersion=1.2.3 (использует CI по тегу).
+#ifndef MyAppVersion
+  #define MyAppVersion "1.0.0"
+#endif
 #define MyAppPublisher "Zapret GUI"
 #define MyAppExeName "ZapretGUI.exe"
 
