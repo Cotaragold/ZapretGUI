@@ -1,0 +1,248 @@
+<Window x:Class="ZapretGUI.NeonThemeTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Нео́нные WPF Стили - Предпросмотр"
+        Height="800"
+        Width="1000"
+        Background="{DynamicResource AppBackgroundGradientBrush}"
+        Foreground="{DynamicResource TextPrimaryBrush}"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="30,30,30,30"
+                   >
+
+            <!-- ==================== BUTTONS ==================== -->
+            <StackPanel>
+                <TextBlock Text="🔘 Button Styles"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource AccentCyanBrush}"
+                           Margin="0,0,0,10" />
+
+                <StackPanel Orientation="Horizontal"
+                           >
+                    <Button Content="Primary Button"
+                            Style="{StaticResource NeonPrimaryButtonStyle}"
+                            Width="160" />
+                    <Button Content="Secondary"
+                            Style="{StaticResource NeonSecondaryButtonStyle}"
+                            Width="160" />
+                    <Button Content="Danger Action"
+                            Style="{StaticResource NeonDangerButtonStyle}"
+                            Width="160" />
+                    <Button Content="Disabled"
+                            Style="{StaticResource NeonPrimaryButtonStyle}"
+                            IsEnabled="False"
+                            Width="160" />
+                </StackPanel>
+
+                <TextBlock Text="↑ Наведите на кнопку для просмотра гко эффекта и анимации масштаба"
+                           Foreground="{DynamicResource TextSecondaryBrush}"
+                           FontSize="12"
+                           Margin="0,5,0,0"
+                           FontStyle="Italic" />
+            </StackPanel>
+
+            <!-- ==================== TEXTBOX ==================== -->
+            <StackPanel>
+                <TextBlock Text="📝 TextBox Styles"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource AccentPurpleBrush}"
+                           Margin="0,0,0,10" />
+
+                <StackPanel>
+                    <TextBox Style="{StaticResource NeonTextBoxStyle}"
+                             Text="Кликните сюда для фокуса (glow эффект)"
+                             Height="36"
+                             Padding="10,8" />
+
+                    <TextBox Style="{StaticResource NeonTextBoxStyle}"
+                             Text="Второе поле ввода"
+                             Height="36" />
+
+                    <TextBox Style="{StaticResource NeonTextBoxStyle}"
+                             IsEnabled="False"
+                             Text="Disabled TextBox"
+                             Height="36" />
+                </StackPanel>
+
+                <TextBlock Text="↑ Naведите или нажмите для просмотра glow эффекта"
+                           Foreground="{DynamicResource TextSecondaryBrush}"
+                           FontSize="12"
+                           Margin="0,5,0,0"
+                           FontStyle="Italic" />
+            </StackPanel>
+
+            <!-- ==================== LISTBOX ==================== -->
+            <StackPanel>
+                <TextBlock Text="📋 ListBox &amp; ListBoxItem"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource AccentCyanBrush}"
+                           Margin="0,0,0,10" />
+
+                <ListBox Style="{StaticResource NeonListBoxStyle}"
+                         ItemContainerStyle="{StaticResource NeonListBoxItemStyle}"
+                         Height="200"
+                         Width="400">
+                    <ListBoxItem Content="Элемент 1 - наведите для highlight" />
+                    <ListBoxItem Content="Элемент 2 - кликните для selected" />
+                    <ListBoxItem Content="Элемент 3 - Cyan neon outline" />
+                    <ListBoxItem Content="Элемент 4 - subtle shadow" />
+                    <ListBoxItem Content="Элемент 5 - ещё один пример" />
+                </ListBox>
+
+                <TextBlock Text="↑ Нажмите на элемент для выделения с неоновым outline"
+                           Foreground="{DynamicResource TextSecondaryBrush}"
+                           FontSize="12"
+                           Margin="0,5,0,0"
+                           FontStyle="Italic" />
+            </StackPanel>
+
+            <!-- ==================== TABCONTROL ==================== -->
+            <StackPanel>
+                <TextBlock Text="🔖 TabControl &amp; TabItem"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource AccentPurpleBrush}"
+                           Margin="0,0,0,10" />
+
+                <TabControl Style="{StaticResource NeonTabControlStyle}"
+                            Height="180"
+                            Width="500">
+                    <TabItem Header="Вкладка 1"
+                              Style="{StaticResource NeonTabItemStyle}">
+                        <StackPanel Margin="20"
+                                   >
+                            <TextBlock Text="Содержимое первой вкладки"
+                                       Foreground="{DynamicResource TextPrimaryBrush}"
+                                       FontSize="14" />
+                            <TextBlock Text="Обратите внимание на cyan underline с glow эффектом"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       FontSize="12" />
+                        </StackPanel>
+                    </TabItem>
+
+                    <TabItem Header="Вкладка 2"
+                              Style="{StaticResource NeonTabItemStyle}">
+                        <StackPanel Margin="20"
+                                   >
+                            <TextBlock Text="Содержимое второй вкладки"
+                                       Foreground="{DynamicResource TextPrimaryBrush}"
+                                       FontSize="14" />
+                            <TextBlock Text="Наведите на неактивные вкладки для purple highlight"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       FontSize="12" />
+                        </StackPanel>
+                    </TabItem>
+
+                    <TabItem Header="Вкладка 3"
+                              Style="{StaticResource NeonTabItemStyle}">
+                        <StackPanel Margin="20"
+                                   >
+                            <TextBlock Text="Содержимое третьей вкладки"
+                                       Foreground="{DynamicResource TextPrimaryBrush}"
+                                       FontSize="14" />
+                            <TextBlock Text="Всё работает плавно без лагов благодаря оптимизации"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       FontSize="12" />
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
+            </StackPanel>
+
+            <!-- ==================== CARDS ==================== -->
+            <StackPanel>
+                <TextBlock Text="🎴 Card Style (Border)"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource AccentCyanBrush}"
+                           Margin="0,0,0,10" />
+
+                <StackPanel Orientation="Horizontal"
+                           >
+
+                    <Border Style="{StaticResource NeonCardStyle}"
+                            Width="280">
+                        <StackPanel>
+                            <TextBlock Text="Карточка 1"
+                                       Foreground="{DynamicResource AccentCyanBrush}"
+                                       FontSize="16"
+                                       FontWeight="Bold" />
+                            <TextBlock Text="Padding: 14px"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       FontSize="12"
+                                       TextWrapping="Wrap" />
+                            <TextBlock Text="CornerRadius: 12px"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       FontSize="12"
+                                       Margin="0,5,0,0"
+                                       TextWrapping="Wrap" />
+                            <TextBlock Text="Subtle glow border всегда включен"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       FontSize="12"
+                                       Margin="0,5,0,0"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource NeonCardStyle}"
+                            Width="280">
+                        <StackPanel>
+                            <TextBlock Text="Карточка 2"
+                                       Foreground="{DynamicResource AccentPurpleBrush}"
+                                       FontSize="16"
+                                       FontWeight="Bold" />
+                            <TextBlock Text="Используется DynamicResource"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       FontSize="12"
+                                       TextWrapping="Wrap" />
+                            <TextBlock Text="Для гибкой смены тем"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       FontSize="12"
+                                       Margin="0,5,0,0"
+                                       TextWrapping="Wrap" />
+                            <TextBlock Text="Background: #101023"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       FontSize="12"
+                                       Margin="0,5,0,0"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </StackPanel>
+
+            <!-- ==================== ИНФОРМАЦИЯ ==================== -->
+            <Border Style="{StaticResource NeonCardStyle}"
+                    Background="#180F1F"
+                    BorderBrush="{DynamicResource AccentDangerBrush}">
+                <StackPanel>
+                    <TextBlock Text="ℹ️ Информация о компонентах"
+                               Foreground="{DynamicResource AccentDangerBrush}"
+                               FontSize="14"
+                               FontWeight="Bold" />
+                    <TextBlock Foreground="{DynamicResource TextSecondaryBrush}"
+                               FontSize="12"
+                               TextWrapping="Wrap"
+                               Text="✓ Все цвета используют DynamicResource для runtime смены темы&#x0a;✓ Гко эффекты включены только на hover/selected, не постоянно&#x0a;✓ CornerRadius: Button = 12px, TextBox = 8px, ListBox = 8px, Card = 12px&#x0a;✓ Padding: Button = 12x8, TextBox = 10x8, Card = 14x14&#x0a;✓ Анимация масштаба Button: 1.0 → 1.02 за 150ms (оптимизирована для производительности)" />
+                </StackPanel>
+            </Border>
+
+            <TextBlock Text="Все стили готовы к использованию в вашем приложении!"
+                       Foreground="{DynamicResource TextSecondaryBrush}"
+                       FontSize="12"
+                       Margin="0,20,0,20"
+                       TextAlignment="Center"
+                       FontStyle="Italic" />
+
+        </StackPanel>
+    </ScrollViewer>
+
+</Window>
+
+

@@ -1,0 +1,370 @@
+<Window x:Class="ZapretGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Zapret GUI"
+        Height="600"
+        Width="900"
+        Icon="/Assets/ZapretGUI.ico"
+        Background="{StaticResource AppBackgroundGradientBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Верхняя «неоновая» панель -->
+        <Border Grid.Row="0"
+                Background="{StaticResource HeaderBackgroundBrush}"
+                Padding="10,0"
+                SnapsToDevicePixels="True">
+            <DockPanel>
+                <TextBlock Text="Zapret GUI"
+                           VerticalAlignment="Center"
+                           FontSize="{StaticResource FontSizeLarge}"
+                           Foreground="{StaticResource AccentCyanBrush}"
+                           FontWeight="Bold" />
+
+                <StackPanel Orientation="Horizontal"
+                            DockPanel.Dock="Right"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="0,0,0,0">
+                    <Button Style="{StaticResource WindowHeaderButtonStyle}"
+                            Content="─"
+                            Width="32"
+                            Height="24"
+                            Command="{Binding MinimizeCommand}" />
+                    <Button Style="{StaticResource WindowHeaderButtonStyle}"
+                            Content="✕"
+                            Width="32"
+                            Height="24"
+                            Command="{Binding CloseCommand}" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- Основной контент -->
+        <Border Grid.Row="1"
+                Margin="12"
+                CornerRadius="{StaticResource CornerRadiusLarge}"
+                Background="{StaticResource CardBackgroundBrush}"
+                BorderBrush="{StaticResource CardBorderBrush}"
+                BorderThickness="1">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Строка статуса / путь -->
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="0"
+                            Margin="0,0,0,8"
+                            HorizontalAlignment="Stretch">
+                    <TextBlock Text="ZapretFolder:"
+                               VerticalAlignment="Center"
+                               Foreground="{StaticResource TextSecondaryBrush}" />
+                    <TextBlock Text="{Binding ZapretFolder}"
+                               Margin="6,0,0,0"
+                               VerticalAlignment="Center"
+                               Foreground="{StaticResource TextPrimaryBrush}" />
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Margin="16,0,0,0">
+                        <!-- Бейдж статуса -->
+                        <Border CornerRadius="12"
+                                Padding="6,2"
+                                Margin="0,0,8,0"
+                                Background="{Binding IsWinwsRunning, Converter={StaticResource StatusBackgroundConverter}}"
+                                BorderBrush="{Binding IsWinwsRunning, Converter={StaticResource StatusBorderConverter}}"
+                                BorderThickness="1">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Ellipse Width="8" Height="8"
+                                         Fill="{Binding IsWinwsRunning, Converter={StaticResource StatusDotConverter}}" />
+                                <TextBlock Text="{Binding StatusText}"
+                                           Margin="4,0,0,0"
+                                           VerticalAlignment="Center"
+                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                           FontSize="{StaticResource FontSizeSmall}" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+
+                <TabControl Grid.Row="1"
+                            Style="{StaticResource NeonTabControlStyle}">
+                    <!-- Главная -->
+                    <TabItem Header="Главная"
+                             Style="{StaticResource NeonTabItemStyle}">
+                        <Grid Margin="8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0,0,0,8">
+                                <Button Content="Авто (подбор)"
+                                        Style="{StaticResource NeonPrimaryButtonStyle}"
+                                        Width="140"
+                                        Margin="0,0,8,0"
+                                        Command="{Binding StartAutoCommand}" />
+                                <Button Content="Остановить"
+                                        Style="{StaticResource NeonDangerButtonStyle}"
+                                        Width="120"
+                                        Command="{Binding StopCommand}" />
+                                <TextBlock Text="{Binding BusyStatus}"
+                                           Margin="12,0,0,0"
+                                           VerticalAlignment="Center"
+                                           TextTrimming="CharacterEllipsis"
+                                           Foreground="{StaticResource AccentCyanBrush}" />
+                            </StackPanel>
+
+                            <Border Grid.Row="1"
+                                    Style="{StaticResource NeonCardStyle}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="Стратегии (general*.bat)"
+                                               FontSize="{StaticResource FontSizeMedium}"
+                                               Margin="0,0,0,6"
+                                               Foreground="{StaticResource TextPrimaryBrush}" />
+
+                                     <ListBox Grid.Row="1"
+                                              ItemsSource="{Binding Strategies}"
+                                              Style="{StaticResource NeonListBoxStyle}"
+                                              ItemContainerStyle="{StaticResource NeonListBoxItemStyle}">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Margin="0,2"
+                                                        Padding="6"
+                                                        CornerRadius="{StaticResource CornerRadiusMedium}"
+                                                        Background="{StaticResource ItemBackgroundBrush}"
+                                                        BorderBrush="{StaticResource ItemBorderBrush}"
+                                                        BorderThickness="1">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Orientation="Vertical">
+                                                            <TextBlock Text="{Binding DisplayName}"
+                                                                       Foreground="{StaticResource TextPrimaryBrush}" />
+                                                            <TextBlock Text="{Binding FileName}"
+                                                                       FontSize="{StaticResource FontSizeSmall}"
+                                                                       Foreground="{StaticResource TextSecondaryBrush}" />
+                                                            <TextBlock Text="{Binding TestResultText}"
+                                                                       FontSize="{StaticResource FontSizeSmall}"
+                                                                       Foreground="{StaticResource AccentCyanBrush}" />
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="1"
+                                                                    Orientation="Horizontal"
+                                                                    HorizontalAlignment="Right">
+                                                            <Button Content="Запустить"
+                                                                    Style="{StaticResource NeonSecondaryButtonStyle}"
+                                                                    Command="{Binding DataContext.StartStrategyCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                    CommandParameter="{Binding}" />
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </TabItem>
+
+                    <!-- Lists -->
+                    <TabItem Header="Lists"
+                             Style="{StaticResource NeonTabItemStyle}">
+                        <Grid Margin="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="3*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" Grid.Column="0"
+                                        Orientation="Horizontal"
+                                        Margin="0,0,0,6">
+                                <Button Content="Разобрать"
+                                        Style="{StaticResource NeonPrimaryButtonStyle}"
+                                        Width="120"
+                                        Margin="0,0,6,0"
+                                        Command="{Binding ParseListsCommand}" />
+                                <Button Content="Применить"
+                                        Style="{StaticResource NeonSecondaryButtonStyle}"
+                                        Width="120"
+                                        Command="{Binding ApplyListsCommand}" />
+                            </StackPanel>
+
+                            <Border Grid.Row="1" Grid.Column="0"
+                                    Style="{StaticResource NeonCardStyle}"
+                                    Margin="0,0,6,0">
+                                <DockPanel>
+                                    <TextBlock Text="Входные данные"
+                                               DockPanel.Dock="Top"
+                                               Margin="0,0,0,4"
+                                               Foreground="{StaticResource TextPrimaryBrush}" />
+                                    <TextBox Text="{Binding RawListInput, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource NeonTextBoxStyle}"
+                                             AcceptsReturn="True"
+                                             VerticalScrollBarVisibility="Auto"
+                                             HorizontalScrollBarVisibility="Auto"
+                                             TextWrapping="NoWrap" />
+                                </DockPanel>
+                            </Border>
+
+                            <Grid Grid.Row="1" Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0"
+                                        Style="{StaticResource NeonCardStyle}"
+                                        Margin="0,0,0,4">
+                                    <DockPanel>
+                                        <TextBlock Text="ipset-all (IP/CIDR)"
+                                                   DockPanel.Dock="Top"
+                                                   Margin="0,0,0,4"
+                                                   Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBox Text="{Binding IpSetAllPreview}"
+                                                 Style="{StaticResource NeonTextBoxStyle}"
+                                                 AcceptsReturn="True"
+                                                 IsReadOnly="True"
+                                                 VerticalScrollBarVisibility="Auto" />
+                                    </DockPanel>
+                                </Border>
+
+                                <Border Grid.Row="1"
+                                        Style="{StaticResource NeonCardStyle}"
+                                        Margin="0,0,0,4">
+                                    <DockPanel>
+                                        <TextBlock Text="list-google (google-domain)"
+                                                   DockPanel.Dock="Top"
+                                                   Margin="0,0,0,4"
+                                                   Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBox Text="{Binding GoogleDomainsPreview}"
+                                                 Style="{StaticResource NeonTextBoxStyle}"
+                                                 AcceptsReturn="True"
+                                                 IsReadOnly="True"
+                                                 VerticalScrollBarVisibility="Auto" />
+                                    </DockPanel>
+                                </Border>
+
+                                <Border Grid.Row="2"
+                                        Style="{StaticResource NeonCardStyle}"
+                                        Margin="0,0,0,4">
+                                    <DockPanel>
+                                        <TextBlock Text="list-general (domain)"
+                                                   DockPanel.Dock="Top"
+                                                   Margin="0,0,0,4"
+                                                   Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBox Text="{Binding GeneralDomainsPreview}"
+                                                 Style="{StaticResource NeonTextBoxStyle}"
+                                                 AcceptsReturn="True"
+                                                 IsReadOnly="True"
+                                                 VerticalScrollBarVisibility="Auto" />
+                                    </DockPanel>
+                                </Border>
+
+                                <Border Grid.Row="3"
+                                        Style="{StaticResource NeonCardStyle}">
+                                    <DockPanel>
+                                        <TextBlock Text="Некорректные строки"
+                                                   DockPanel.Dock="Top"
+                                                   Margin="0,0,0,4"
+                                                   Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBox Text="{Binding InvalidLinesPreview}"
+                                                 Style="{StaticResource NeonTextBoxStyle}"
+                                                 AcceptsReturn="True"
+                                                 IsReadOnly="True"
+                                                 VerticalScrollBarVisibility="Auto" />
+                                    </DockPanel>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+
+                    <!-- Service -->
+                    <TabItem Header="Service"
+                             Style="{StaticResource NeonTabItemStyle}">
+                        <Grid Margin="8">
+                            <Border Style="{StaticResource NeonCardStyle}">
+                                <StackPanel>
+                                    <TextBlock Text="Сервисные операции"
+                                               FontSize="{StaticResource FontSizeMedium}"
+                                               Margin="0,0,0,8"
+                                               Foreground="{StaticResource TextPrimaryBrush}" />
+                                    <Button Content="Открыть service.bat"
+                                            Style="{StaticResource NeonPrimaryButtonStyle}"
+                                            Width="200"
+                                            HorizontalAlignment="Left"
+                                            Command="{Binding OpenServiceCommand}" />
+
+                                    <TextBlock Text="Список заблокированных IP (ipset-all.txt)"
+                                               FontSize="{StaticResource FontSizeMedium}"
+                                               Margin="0,20,0,8"
+                                               Foreground="{StaticResource TextPrimaryBrush}" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="Обновить список IP"
+                                                Style="{StaticResource NeonSecondaryButtonStyle}"
+                                                Width="200"
+                                                HorizontalAlignment="Left"
+                                                Command="{Binding UpdateIpCommand}" />
+                                        <TextBlock Text="{Binding IpUpdateStatus}"
+                                                   Margin="12,0,0,0"
+                                                   VerticalAlignment="Center"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Foreground="{StaticResource AccentCyanBrush}" />
+                                    </StackPanel>
+                                    <TextBlock Text="Обновляется автоматически при запуске. Источники — в appsettings.json."
+                                               FontSize="{StaticResource FontSizeSmall}"
+                                               Margin="0,8,0,0"
+                                               TextWrapping="Wrap"
+                                               Foreground="{StaticResource TextSecondaryBrush}" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </TabItem>
+
+                    <!-- Логи -->
+                    <TabItem Header="Логи"
+                             Style="{StaticResource NeonTabItemStyle}">
+                        <Grid Margin="8">
+                            <Border Style="{StaticResource NeonCardStyle}">
+                                <DockPanel>
+                                    <TextBlock Text="ZapretGUI.log"
+                                               DockPanel.Dock="Top"
+                                               Margin="0,0,0,4"
+                                               Foreground="{StaticResource TextPrimaryBrush}" />
+                                    <TextBox Text="{Binding LogText}"
+                                             Style="{StaticResource NeonTextBoxStyle}"
+                                             AcceptsReturn="True"
+                                             IsReadOnly="True"
+                                             VerticalScrollBarVisibility="Auto"
+                                             HorizontalScrollBarVisibility="Auto"
+                                             TextWrapping="NoWrap" />
+                                </DockPanel>
+                            </Border>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
+
